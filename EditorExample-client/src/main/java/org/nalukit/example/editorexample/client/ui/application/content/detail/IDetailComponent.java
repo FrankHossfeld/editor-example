@@ -28,12 +28,10 @@ public interface IDetailComponent
 
   boolean isDirty();
 
-  Person flush(Person person);
+  Person flush();
 
   interface Controller
       extends IsComponent.Controller {
-
-    Person getPerson();
 
     void doRevert();
 

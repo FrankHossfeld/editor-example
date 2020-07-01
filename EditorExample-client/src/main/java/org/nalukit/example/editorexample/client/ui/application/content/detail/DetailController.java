@@ -26,48 +26,50 @@ import com.google.gwt.user.client.ui.Widget;
 import elemental2.dom.DomGlobal;
 import org.nalukit.example.editorexample.client.Context;
 import org.nalukit.example.editorexample.client.Routes;
+import org.nalukit.example.editorexample.client.Slots;
 import org.nalukit.example.editorexample.client.event.StatusChangeEvent;
 import org.nalukit.example.editorexample.shared.model.dto.Person;
 import org.nalukit.example.editorexample.shared.model.service.PersonServiceFactory;
 
-@Controller(route = "/application/detail/:id",
-            selector = "content",
+@Controller(route = Routes.ROUTE_DETAIL,
+            selector = Slots.SLOT_CONTENT,
             componentInterface = IDetailComponent.class,
             component = DetailComponent.class)
 public class DetailController
     extends AbstractComponentController<Context, IDetailComponent, Widget>
     implements IDetailComponent.Controller {
   
+  private long   id;
   private Person person;
-  
-  private long id;
   
   public DetailController() {
   }
   
   @Override
   public String mayStop() {
-    return this.component.isDirty() ? "Would youlike to cancel your edits?" : null;
+    return this.component.isDirty() ? "Would you like to cancel your edits?" : null;
   }
   
   @Override
-  public void start() {
+  public void stop() {
+    this.eventBus.fireEvent(new StatusChangeEvent(""));
+  }
+  
+  @Override
+  public void activate() {
     if (this.id == 0) {
       this.router.route(Routes.ROUTE_SEARCH);
     }
     PersonServiceFactory.INSTANCE.get(String.valueOf(id))
                                  .onSuccess(response -> {
                                    person = response.getPerson();
-                                   component.edit(person);
-                                   eventBus.fireEvent(new StatusChangeEvent("Edit person data with id: " + this.person.getId()));
+                                   component.edit(response.getPerson());
+                                   eventBus.fireEvent(new StatusChangeEvent("Edit person data with id: " + response.getPerson()
+                                                                                                                   .getId()));
+                                   eventBus.fireEvent(new StatusChangeEvent("Edit person data with id: " + person.getId()));
                                  })
                                  .onFailed(failedResponse -> Window.alert("PANIC ... turn around and clap your hands ..."))
                                  .send();
-  }
-  
-  @Override
-  public void stop() {
-    this.eventBus.fireEvent(new StatusChangeEvent(""));
   }
   
   @AcceptParameter("id")
@@ -88,11 +90,6 @@ public class DetailController
   }
   
   @Override
-  public Person getPerson() {
-    return this.person;
-  }
-  
-  @Override
   public void doRevert() {
     this.router.route(Routes.ROUTE_LIST,
                       this.context.getPersonSearch()
@@ -103,18 +100,18 @@ public class DetailController
   
   @Override
   public void doUpdate() {
-    PersonServiceFactory.INSTANCE.update(component.flush(person))
+    PersonServiceFactory.INSTANCE.update(component.flush())
                                  .onSuccess(response -> {
                                    if (this.context.getPersonSearch()
                                                    .getName() == null && this.context.getPersonSearch()
                                                                                      .getCity() == null) {
                                      this.router.route(Routes.ROUTE_SEARCH);
                                    } else {
-                                     this.router.route(Routes.ROUTE_LIST,
-                                                       this.context.getPersonSearch()
-                                                                   .getName(),
-                                                       this.context.getPersonSearch()
-                                                                   .getCity());
+                                     this.router.forceRoute(Routes.ROUTE_LIST,
+                                                            this.context.getPersonSearch()
+                                                                        .getName(),
+                                                            this.context.getPersonSearch()
+                                                                        .getCity());
                                    }
                                  })
                                  .onFailed(failedResponse -> Window.alert("Panic!"))

@@ -18,7 +18,10 @@
 package org.nalukit.example.editorexample.client.ui.application.content.detail;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.editor.client.Editor;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.user.client.ui.*;
 import org.nalukit.example.editorexample.client.resources.ApplicationConstants;
 import org.nalukit.example.editorexample.client.resources.ApplicationCss;
@@ -28,27 +31,27 @@ import org.nalukit.example.editorexample.shared.model.dto.Person;
 
 public class DetailComponent
     extends AbstractComponent<IDetailComponent.Controller, Widget>
-    implements IDetailComponent {
+    implements IDetailComponent,
+               Editor<Person> {
 
-  private TextField detailFirstName;
-
-  private TextField detailName;
-
-  private TextField detailStreet;
-
-  private TextField detailZip;
-
-  private TextField detailCity;
-
+  @Path("firstName")
+  TextField detailFirstName;
+  @Path("name")
+  TextField detailName;
+  @Path("address.street")
+  TextField detailStreet;
+  @Path("address.zip")
+  TextField detailZip;
+  @Path("address.city")
+  TextField detailCity;
+  
   private Button saveButton;
-
   private Button revertButton;
-
-  //  private Person person;
+  private Driver driver;
 
   public DetailComponent() {
   }
-
+  
   @Override
   public void render() {
     ApplicationCss style = ApplicationStyleFactory.get()
@@ -104,6 +107,9 @@ public class DetailComponent
   }
 
   public void bind() {
+    driver = GWT.create(Driver.class);
+    driver.initialize(this);
+    
     saveButton.addClickHandler(event -> {
       getController().doUpdate();
     });
@@ -114,51 +120,22 @@ public class DetailComponent
   @Override
   public void edit(Person result) {
     if (result != null) {
-      detailFirstName.setText(result.getFirstName());
-      detailName.setText(result.getName());
-      detailStreet.setText(result.getAddress()
-                                 .getStreet());
-      detailZip.setText(result.getAddress()
-                              .getZip());
-      detailCity.setText(result.getAddress()
-                               .getCity());
+      driver.edit(result);
     }
   }
 
   @Override
   public boolean isDirty() {
-    boolean notDirty = (getController().getPerson()
-                                       .getFirstName()
-                                       .equals(detailFirstName.getText())) &&
-                       (getController().getPerson()
-                                       .getName()
-                                       .equals(detailName.getText())) &&
-                       (getController().getPerson()
-                                       .getAddress()
-                                       .getStreet()
-                                       .equals(detailStreet.getText())) &&
-                       (getController().getPerson()
-                                       .getAddress()
-                                       .getZip()
-                                       .equals(detailZip.getText())) &&
-                       (getController().getPerson()
-                                       .getAddress()
-                                       .getCity()
-                                       .equals(detailCity.getText()));
-    return !notDirty;
+    return driver.isDirty();
   }
 
   @Override
-  public Person flush(Person person) {
-    person.setFirstName(detailFirstName.getText());
-    person.setName(detailName.getText());
-    person.getAddress()
-          .setStreet(detailStreet.getText());
-    person.getAddress()
-          .setZip(detailZip.getText());
-    person.getAddress()
-          .setCity(detailCity.getText());
-    return person;
+  public Person flush() {
+    return driver.flush();
+  }
+  
+  interface Driver
+      extends SimpleBeanEditorDriver<Person, DetailComponent> {
   }
 
 }

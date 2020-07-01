@@ -40,30 +40,25 @@ public class ListController
     implements IListComponent.Controller {
   
   private String name;
-  
   private String city;
   
   public ListController() {
   }
   
   @Override
-  public void start() {
-    GWT.debugger();
+  public void activate() {
     PersonServiceFactory.INSTANCE.getAll(new PersonSearch(this.name,
                                                           this.city))
                                  .onSuccess(response -> {
                                    GWT.debugger();
                                    this.component.resetTable();
                                    this.component.setData(response.getPersonList());
-                                   if (response.getPersonList()
-                                               .size() == 0) {
+                                   if (response.getPersonList().size() == 0) {
                                      this.eventBus.fireEvent(new StatusChangeEvent("No person found"));
-                                   } else if (response.getPersonList()
-                                                      .size() == 1) {
+                                   } else if (response.getPersonList().size() == 1) {
                                      this.eventBus.fireEvent(new StatusChangeEvent("Found one person"));
                                    } else {
-                                     this.eventBus.fireEvent(new StatusChangeEvent("Found " + response.getPersonList()
-                                                                                                      .size() + " persons"));
+                                     this.eventBus.fireEvent(new StatusChangeEvent("Found " + response.getPersonList().size() + " persons"));
                                    }
                                  })
                                  .onFailed(repsonse -> Window.alert("PANIC!"))
