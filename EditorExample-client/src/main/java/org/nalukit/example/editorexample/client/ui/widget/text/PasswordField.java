@@ -33,67 +33,67 @@ public class PasswordField
                HasValue<String>,
                IsEditor<ValueBoxEditor<String>>,
                Focusable {
-  
+
   private TextFieldStyle style;
-  
+
   private Label label;
-  
+
   private PasswordTextBox passwordTextBox;
-  
+
   private FlowPanel panel;
-  
+
   private ResizeLayoutPanel widgetPanel;
-  
+
   public PasswordField() {
     this(null);
   }
-  
+
   public PasswordField(String label) {
     Resources resources = GWT.create(Resources.class);
     this.style = resources.style();
     this.style.ensureInjected();
-    
+
     createWidget();
-    
+
     setLabel(label);
   }
-  
+
   private void createWidget() {
     widgetPanel = new ResizeLayoutPanel();
     widgetPanel.addStyleName(style.widgetPanel());
     widgetPanel.addResizeHandler(event -> forceLayout());
-    
+
     panel = new FlowPanel();
     panel.addStyleName(style.panel());
     widgetPanel.add(panel);
-    
+
     label = new Label();
     label.addStyleName(style.label());
     panel.add(label);
-    
+  
     passwordTextBox = new PasswordTextBox();
     passwordTextBox.addStyleName(style.textBox());
     panel.add(passwordTextBox);
-    
+
     initWidget(widgetPanel);
   }
-  
+
   public void forceLayout() {
     if (this.isAttached()) {
       Widget parent = getParent();
       if (parent != null) {
         int parentWidth = parent.getOffsetWidth();
-        
+
         label.setWidth(Integer.toString(parentWidth - 48) + "px");
         passwordTextBox.setWidth(Integer.toString(parentWidth - 48) + "px");
       }
     }
   }
-  
+
   public String getLabel() {
     return label.getText();
   }
-  
+
   public void setLabel(String label) {
     if (label != null && label.length() > 0) {
       this.label.setText(label);
@@ -105,53 +105,52 @@ public class PasswordField
       super.setHeight("42px");
     }
   }
-  
+
   @Override
   public int getTabIndex() {
     return passwordTextBox.getTabIndex();
   }
-  
+
   @Override
   public void setTabIndex(int index) {
     passwordTextBox.setTabIndex(index);
   }
-  
+
   @Override
   public void setAccessKey(char key) {
     passwordTextBox.setAccessKey(key);
   }
-  
+
   @Override
   public void setFocus(boolean focused) {
     passwordTextBox.setFocus(focused);
   }
-  
+
   @Override
   public String getText() {
     return passwordTextBox.getText();
   }
-  
+
   @Override
   public void setText(String text) {
     this.passwordTextBox.setText(text);
   }
-  
+
   public void setWidth(String width) {
     assert false : "setting width not allowed";
   }
-  
+
   public void onLoad() {
     super.onLoad();
     Scheduler.get()
              .scheduleDeferred(new ScheduledCommand() {
-      
                @Override
                public void execute() {
                  forceLayout();
                }
              });
   }
-  
+
   @Override
   public ValueBoxEditor<String> asEditor() {
     return passwordTextBox.asEditor();
@@ -170,8 +169,7 @@ public class PasswordField
   @Override
   public void setValue(String s,
                        boolean b) {
-    passwordTextBox.setValue(s,
-                             b);
+    passwordTextBox.setValue(s, b);
   }
   
   @Override
@@ -181,10 +179,10 @@ public class PasswordField
   
   public interface Resources
       extends ClientBundle {
-    
+
     @Source("TextFieldStyle.css")
     TextFieldStyle style();
-    
+
   }
-  
+
 }

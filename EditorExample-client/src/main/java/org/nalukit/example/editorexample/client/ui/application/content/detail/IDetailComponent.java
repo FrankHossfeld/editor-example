@@ -15,19 +15,32 @@
  *
  */
 
-package org.nalukit.example.editorexample.client.ui.widget.text;
+package org.nalukit.example.editorexample.client.ui.application.content.detail;
 
-import com.google.gwt.resources.client.CssResource;
+import com.github.nalukit.nalu.client.component.IsComponent;
+import com.google.gwt.user.client.ui.Widget;
+import org.nalukit.example.editorexample.shared.model.dto.Person;
 
-public interface TextFieldStyle
-    extends CssResource {
+public interface IDetailComponent
+    extends IsComponent<IDetailComponent.Controller, Widget> {
 
-  String panel();
+  void edit(Person person);
 
-  String label();
+  boolean isDirty();
 
-  String textBox();
+  Person flush(Person person);
 
-  String widgetPanel();
+  interface Controller
+      extends IsComponent.Controller {
+
+    Person getPerson();
+
+    void doRevert();
+
+    void doUpdate();
+
+    String getHRef();
+
+  }
 
 }

@@ -12,7 +12,7 @@ public class LoggingRequestFilter
       throws IOException {
     String method = containerRequestContext.getMethod();
     System.out.println("=====================================================================================================================");
-    System.out.println("devkexample Application: Requesting " +
+    System.out.println("Example Application: Requesting " +
                        method +
                        " for path " +
                        containerRequestContext.getUriInfo()

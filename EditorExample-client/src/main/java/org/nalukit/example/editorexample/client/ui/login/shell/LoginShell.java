@@ -44,8 +44,8 @@ public class LoginShell
   
   private Widget render() {
     shell = new VerticalPanel();
-    //    shell.setSize("100%",
-    //                  "100%");
+//    shell.setSize("100%",
+//                  "100%");
     shell.setWidth("100%");
     shell.setHeight("100%");
     shell.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);

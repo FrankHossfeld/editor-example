@@ -37,30 +37,27 @@ import java.util.List;
 public class ListComponent
     extends AbstractComponent<IListComponent.Controller, Widget>
     implements IListComponent {
-  
+
   private CellTable<Person> resultTable;
-  
+
   public ListComponent() {
   }
-  
+
   @Override
   public void render() {
     ApplicationCss style = ApplicationStyleFactory.get()
                                                   .getStyle();
     ScrollPanel panel = new ScrollPanel();
-    panel.getElement()
-         .getStyle()
-         .setPadding(20,
-                     Style.Unit.PX);
-    
+    panel.getElement().getStyle().setPadding(20, Style.Unit.PX);
+
     FlowPanel resultPanel = new FlowPanel();
     resultPanel.addStyleName(style.resultPanel());
     panel.add(resultPanel);
-    
+
     Label headline = new Label(ApplicationConstants.CONSTANTS.resultHeadline());
     headline.addStyleName(style.headline());
     resultPanel.add(headline);
-    
+
     resultTable = new CellTable<>();
     resultPanel.add(resultTable);
     resultTable.setEmptyTableWidget(new HTML(ApplicationConstants.CONSTANTS.resultText()));
@@ -68,26 +65,26 @@ public class ListComponent
                                                   ApplicationConstants.CONSTANTS.columnName(),
                                                   person -> person.getName() + ", " + person.getFirstName(),
                                                   (index, object, value) -> getController().doUpdate(object));
-    
+
     Column<Person, String> streetColumn = addColumn(new TextCell(),
                                                     ApplicationConstants.CONSTANTS.columnStreet(),
                                                     person -> person.getAddress()
                                                                     .getStreet(),
                                                     null);
-    
+
     Column<Person, String> plzColumn = addColumn(new TextCell(),
                                                  ApplicationConstants.CONSTANTS.columnPlz(),
                                                  person -> person.getAddress()
                                                                  .getZip(),
                                                  null);
     plzColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-    
+
     Column<Person, String> cityColumn = addColumn(new TextCell(),
                                                   ApplicationConstants.CONSTANTS.columnCity(),
                                                   person -> person.getAddress()
                                                                   .getCity(),
                                                   null);
-    
+
     resultTable.setWidth("100%");
     resultTable.setColumnWidth(nameColumn,
                                "40%");
@@ -97,12 +94,12 @@ public class ListComponent
                                "10%");
     resultTable.setColumnWidth(cityColumn,
                                "25%");
-    
+
     resetTable();
-    
+
     initElement(panel);
   }
-  
+
   /**
    * Add a column with a header.
    *
@@ -116,7 +113,6 @@ public class ListComponent
                                           final GetValue<C> getter,
                                           FieldUpdater<Person, C> fieldUpdater) {
     Column<Person, C> column = new Column<Person, C>(cell) {
-      
       @Override
       public C getValue(Person object) {
         return getter.getValue(object);
@@ -127,7 +123,7 @@ public class ListComponent
                           headerText);
     return column;
   }
-  
+
   @Override
   public void resetTable() {
     resultTable.setRowCount(0,
@@ -135,21 +131,21 @@ public class ListComponent
     resultTable.setRowData(0,
                            new ArrayList<>());
   }
-  
+
   @Override
   public void setData(List<Person> result) {
     resultTable.setRowData(result);
   }
-  
+
   /**
    * Get a cell value from a record.
    *
    * @param <C> the cell generator
    */
   private interface GetValue<C> {
-    
+
     C getValue(Person person);
-    
+
   }
-  
+
 }

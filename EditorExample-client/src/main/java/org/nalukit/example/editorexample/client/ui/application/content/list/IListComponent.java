@@ -25,16 +25,16 @@ import java.util.List;
 
 public interface IListComponent
     extends IsComponent<IListComponent.Controller, Widget> {
-  
+
   void resetTable();
-  
+
   void setData(List<Person> result);
-  
+
   interface Controller
       extends IsComponent.Controller {
-    
+
     void doUpdate(Person object);
-    
+
   }
-  
+
 }

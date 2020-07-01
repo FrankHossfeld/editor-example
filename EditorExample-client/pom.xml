@@ -78,6 +78,12 @@
       <artifactId>nalu-plugin-gwt-processor</artifactId>
       <version>${nalu.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.dominokit</groupId>
+      <artifactId>domino-rest-gwt</artifactId>
+      <version>${domino.rest.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

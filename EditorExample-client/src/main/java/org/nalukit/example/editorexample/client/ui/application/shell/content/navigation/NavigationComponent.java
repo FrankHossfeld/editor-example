@@ -2,9 +2,9 @@ package org.nalukit.example.editorexample.client.ui.application.shell.content.na
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.*;
 import org.nalukit.example.editorexample.client.resources.ApplicationConstants;
 import org.nalukit.example.editorexample.client.resources.ApplicationCss;
 import org.nalukit.example.editorexample.client.resources.ApplicationStyleFactory;
@@ -40,10 +40,7 @@ public class NavigationComponent
     ApplicationCss style = ApplicationStyleFactory.get()
                                                   .getStyle();
     FlowPanel panel = new FlowPanel();
-    panel.getElement()
-         .getStyle()
-         .setPadding(10,
-                     Style.Unit.PX);
+    panel.getElement().getStyle().setPadding(10, Style.Unit.PX);
     
     searchButton = new Button(ApplicationConstants.CONSTANTS.searchFormButton());
     searchButton.addStyleName(style.navigationButton());

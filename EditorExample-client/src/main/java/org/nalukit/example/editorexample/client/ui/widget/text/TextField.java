@@ -33,67 +33,67 @@ public class TextField
                HasValue<String>,
                IsEditor<ValueBoxEditor<String>>,
                Focusable {
-  
+
   private TextFieldStyle style;
-  
+
   private Label label;
-  
+
   private TextBox textBox;
-  
+
   private FlowPanel panel;
-  
+
   private ResizeLayoutPanel widgetPanel;
-  
+
   public TextField() {
     this(null);
   }
-  
+
   public TextField(String label) {
     Resources resources = GWT.create(Resources.class);
     this.style = resources.style();
     this.style.ensureInjected();
-    
+
     createWidget();
-    
+
     setLabel(label);
   }
-  
+
   private void createWidget() {
     widgetPanel = new ResizeLayoutPanel();
     widgetPanel.addStyleName(style.widgetPanel());
     widgetPanel.addResizeHandler(event -> forceLayout());
-    
+
     panel = new FlowPanel();
     panel.addStyleName(style.panel());
     widgetPanel.add(panel);
-    
+
     label = new Label();
     label.addStyleName(style.label());
     panel.add(label);
-    
+
     textBox = new TextBox();
     textBox.addStyleName(style.textBox());
     panel.add(textBox);
-    
+
     initWidget(widgetPanel);
   }
-  
+
   public void forceLayout() {
     if (this.isAttached()) {
       Widget parent = getParent();
       if (parent != null) {
         int parentWidth = parent.getOffsetWidth();
-        
+
         label.setWidth(Integer.toString(parentWidth - 48) + "px");
         textBox.setWidth(Integer.toString(parentWidth - 48) + "px");
       }
     }
   }
-  
+
   public String getLabel() {
     return label.getText();
   }
-  
+
   public void setLabel(String label) {
     if (label != null && label.length() > 0) {
       this.label.setText(label);
@@ -105,53 +105,52 @@ public class TextField
       super.setHeight("42px");
     }
   }
-  
+
   @Override
   public int getTabIndex() {
     return textBox.getTabIndex();
   }
-  
+
   @Override
   public void setTabIndex(int index) {
     textBox.setTabIndex(index);
   }
-  
+
   @Override
   public void setAccessKey(char key) {
     textBox.setAccessKey(key);
   }
-  
+
   @Override
   public void setFocus(boolean focused) {
     textBox.setFocus(focused);
   }
-  
+
   @Override
   public String getText() {
     return textBox.getText();
   }
-  
+
   @Override
   public void setText(String text) {
     this.textBox.setText(text);
   }
-  
+
   public void setWidth(String width) {
     assert false : "setting width not allowed";
   }
-  
+
   public void onLoad() {
     super.onLoad();
     Scheduler.get()
              .scheduleDeferred(new ScheduledCommand() {
-      
                @Override
                public void execute() {
                  forceLayout();
                }
              });
   }
-  
+
   @Override
   public ValueBoxEditor<String> asEditor() {
     return textBox.asEditor();
@@ -170,8 +169,7 @@ public class TextField
   @Override
   public void setValue(String s,
                        boolean b) {
-    textBox.setValue(s,
-                     b);
+    textBox.setValue(s, b);
   }
   
   @Override
@@ -181,10 +179,10 @@ public class TextField
   
   public interface Resources
       extends ClientBundle {
-    
+
     @Source("TextFieldStyle.css")
     TextFieldStyle style();
-    
+
   }
-  
+
 }

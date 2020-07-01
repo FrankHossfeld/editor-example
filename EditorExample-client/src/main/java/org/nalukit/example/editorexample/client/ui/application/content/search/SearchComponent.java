@@ -40,45 +40,6 @@ public class SearchComponent
   }
   
   @Override
-  public void render() {
-    ApplicationCss style = ApplicationStyleFactory.get()
-                                                  .getStyle();
-    ScrollPanel panel = new ScrollPanel();
-    panel.getElement()
-         .getStyle()
-         .setPadding(20,
-                     Style.Unit.PX);
-    
-    FlowPanel searchPanel = new FlowPanel();
-    searchPanel.addStyleName(style.searchPanel());
-    panel.add(searchPanel);
-    
-    Label headline = new Label(ApplicationConstants.CONSTANTS.searchHeadline());
-    headline.addStyleName(style.headline());
-    searchPanel.add(headline);
-    
-    searchName = new TextField(ApplicationConstants.CONSTANTS.searchName());
-    searchPanel.add(searchName);
-    
-    searchCity = new TextField(ApplicationConstants.CONSTANTS.searchCity());
-    searchPanel.add(searchCity);
-    
-    FlowPanel buttonBar = new FlowPanel();
-    buttonBar.addStyleName(style.searchPanelButtonBar());
-    searchPanel.add(buttonBar);
-    
-    searchButton = new Button(ApplicationConstants.CONSTANTS.searchButton());
-    searchButton.addStyleName(style.button());
-    buttonBar.add(searchButton);
-    
-    resetButton = new Button(ApplicationConstants.CONSTANTS.resetButton());
-    resetButton.addStyleName(style.button());
-    buttonBar.add(resetButton);
-    
-    initElement(panel);
-  }
-  
-  @Override
   public void bind() {
     searchButton.addClickHandler(event -> getController().doClickSearchButton(searchName.getText(),
                                                                               searchCity.getText()));
@@ -88,6 +49,43 @@ public class SearchComponent
       searchCity.setText("");
     });
   }
+  
+  @Override
+  public void render() {
+    ApplicationCss style = ApplicationStyleFactory.get()
+                                                  .getStyle();
+    ScrollPanel panel = new ScrollPanel();
+    panel.getElement().getStyle().setPadding(20, Style.Unit.PX);
+  
+    FlowPanel searchPanel = new FlowPanel();
+    searchPanel.addStyleName(style.searchPanel());
+    panel.add(searchPanel);
+  
+    Label headline = new Label(ApplicationConstants.CONSTANTS.searchHeadline());
+    headline.addStyleName(style.headline());
+    searchPanel.add(headline);
+  
+    searchName = new TextField(ApplicationConstants.CONSTANTS.searchName());
+    searchPanel.add(searchName);
+  
+    searchCity = new TextField(ApplicationConstants.CONSTANTS.searchCity());
+    searchPanel.add(searchCity);
+  
+    FlowPanel buttonBar = new FlowPanel();
+    buttonBar.addStyleName(style.searchPanelButtonBar());
+    searchPanel.add(buttonBar);
+  
+    searchButton = new Button(ApplicationConstants.CONSTANTS.searchButton());
+    searchButton.addStyleName(style.button());
+    buttonBar.add(searchButton);
+  
+    resetButton = new Button(ApplicationConstants.CONSTANTS.resetButton());
+    resetButton.addStyleName(style.button());
+    buttonBar.add(resetButton);
+  
+    initElement(panel);
+  }
+  
   
   @Override
   public void setSearchName(String searchName) {

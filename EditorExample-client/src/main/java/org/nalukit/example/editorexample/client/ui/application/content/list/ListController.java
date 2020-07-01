@@ -20,6 +20,7 @@ package org.nalukit.example.editorexample.client.ui.application.content.list;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import org.nalukit.example.editorexample.client.Context;
@@ -47,9 +48,11 @@ public class ListController
   
   @Override
   public void start() {
+    GWT.debugger();
     PersonServiceFactory.INSTANCE.getAll(new PersonSearch(this.name,
                                                           this.city))
                                  .onSuccess(response -> {
+                                   GWT.debugger();
                                    this.component.resetTable();
                                    this.component.setData(response.getPersonList());
                                    if (response.getPersonList()

@@ -55,31 +55,10 @@ public class EditorExampleApplicationEventListener
                                                   .getHandler()
                                                   .getHandlerClass()
                                                   .getName();
-          System.out.println("TaaApplication -> " + resourceName + ": Method '" + methodName + "' executed. Processing time: " + methodExecution + " ms");
+          System.out.println("Example -> " + resourceName + ": Method '" + methodName + "' executed. Processing time: " + methodExecution + " ms");
           break;
         case ON_EXCEPTION:
           System.out.println("=====================================================================================================================================================");
-          //          ExtendedUriInfo uriInfo = requestEvent.getUriInfo();
-          //          if (uriInfo != null) {
-          //            if (uriInfo.getMatchedResourceMethod() != null) {
-          //              final String expeptionMethodName = requestEvent.getUriInfo()
-          //                                                             .getMatchedResourceMethod()
-          //                                                             .getInvocable()
-          //                                                             .getHandlingMethod()
-          //                                                             .getName();
-          //              final String exceptionResourceName = requestEvent.getUriInfo()
-          //                                                               .getMatchedResourceMethod()
-          //                                                               .getInvocable()
-          //                                                               .getHandler()
-          //                                                               .getHandlerClass()
-          //                                                               .getName();
-          //              final String exceptionResourceCause = requestEvent.getException()
-          //                                                                .getCause()
-          //                                                                .getMessage();
-          //              System.out.println("TaaApplication -> " + exceptionResourceName + ": Method '" + expeptionMethodName + "' fails! ==> " + exceptionResourceCause);
-          //            }
-          //            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
-          //          }
           requestEvent.getException()
                       .printStackTrace(System.out);
           System.out.println("=====================================================================================================================================================");
@@ -100,7 +79,6 @@ public class EditorExampleApplicationEventListener
                                          .name() +
                              "<<");
         default:
-          //          System.out.println("--- WARN: TaaApplicationEventListener/ResourceEventListener/onEvent-keine Aktion für dieses Event definiert! ---");
           break;
       }
     }

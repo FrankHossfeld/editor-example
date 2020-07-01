@@ -8,6 +8,7 @@ import org.nalukit.example.editorexample.client.Context;
 import org.nalukit.example.editorexample.client.Routes;
 import org.nalukit.example.editorexample.client.Slots;
 import org.nalukit.example.editorexample.client.event.StatusChangeEvent;
+import org.nalukit.example.editorexample.shared.model.MyModel;
 import org.nalukit.example.editorexample.shared.model.dto.PersonSearch;
 
 /**
@@ -48,10 +49,8 @@ public class SearchController
   @Override
   public void doClickSearchButton(String searchName,
                                   String searchCity) {
-    this.context.getPersonSearch()
-                .setCity(searchCity);
-    this.context.getPersonSearch()
-                .setName(searchName);
+    this.context.getPersonSearch().setCity(searchCity);
+    this.context.getPersonSearch().setName(searchName);
     this.router.route(Routes.ROUTE_LIST,
                       searchName,
                       searchCity);
@@ -64,10 +63,8 @@ public class SearchController
                   .length() > 0) {
       this.component.setSearchName(searchName);
     } else {
-      if (context.getPersonSearch()
-                 .getName() != null) {
-        this.component.setSearchName(context.getPersonSearch()
-                                            .getName());
+      if (context.getPersonSearch().getName() != null) {
+        this.component.setSearchName(context.getPersonSearch().getName());
       } else {
         this.component.setSearchName("");
       }
@@ -81,10 +78,8 @@ public class SearchController
                   .length() > 0) {
       this.component.setSearchCity(searchCity);
     } else {
-      if (context.getPersonSearch()
-                 .getCity() != null) {
-        this.component.setSearchCity(context.getPersonSearch()
-                                            .getCity());
+      if (context.getPersonSearch().getCity() != null) {
+        this.component.setSearchCity(context.getPersonSearch().getCity());
       } else {
         this.component.setSearchCity("");
       }

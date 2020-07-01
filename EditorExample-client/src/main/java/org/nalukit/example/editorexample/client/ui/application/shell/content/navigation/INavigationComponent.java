@@ -23,11 +23,11 @@ public interface INavigationComponent
   
   interface Controller
       extends IsComponent.Controller {
-    
+  
     void doShowSearch();
-    
+  
     void doShowList();
-    
+  
   }
   
 }

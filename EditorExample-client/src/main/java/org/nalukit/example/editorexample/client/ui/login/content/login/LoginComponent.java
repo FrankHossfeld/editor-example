@@ -46,8 +46,7 @@ public class LoginComponent
     vlc.add(this.userId);
     vlc.add(this.password);
     vlc.add(button);
-    vlc.setCellHorizontalAlignment(button,
-                                   HasHorizontalAlignment.ALIGN_RIGHT);
+    vlc.setCellHorizontalAlignment(button, HasHorizontalAlignment.ALIGN_RIGHT);
     initElement(vlc);
   }
   

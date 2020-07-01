@@ -35,12 +35,12 @@
     <dependency>
       <groupId>org.dominokit</groupId>
       <artifactId>domino-rest-shared</artifactId>
-      <version>${domnio-rest}</version>
+      <version>${domino.rest.version}</version>
     </dependency>
     <dependency>
       <groupId>org.dominokit</groupId>
       <artifactId>domino-rest-apt</artifactId>
-      <version>${domnio-rest}</version>
+      <version>${domino.rest.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

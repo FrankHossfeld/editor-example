@@ -36,6 +36,7 @@
   <!-- <inherits historyName='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
+  <inherits name='org.dominokit.domino.rest.GwtRest' />
   <inherits name='org.nalukit.example.editorexample.Dto'/>
   <inherits name='com.github.nalukit.nalu.Nalu'/>
   <inherits name='com.github.nalukit.nalu.plugin.gwt.NaluPluginGWT'/>

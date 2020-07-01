@@ -38,19 +38,15 @@ public class NavigationController
   @Override
   public void doShowSearch() {
     this.router.route(Routes.ROUTE_SEARCH,
-                      this.context.getPersonSearch()
-                                  .getName(),
-                      this.context.getPersonSearch()
-                                  .getCity());
+                      this.context.getPersonSearch().getName(),
+                      this.context.getPersonSearch().getCity());
   }
   
   @Override
   public void doShowList() {
     this.router.route(Routes.ROUTE_LIST,
-                      this.context.getPersonSearch()
-                                  .getName(),
-                      this.context.getPersonSearch()
-                                  .getCity());
+                      this.context.getPersonSearch().getName(),
+                      this.context.getPersonSearch().getCity());
   }
   
 }

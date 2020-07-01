@@ -2,6 +2,7 @@ package org.nalukit.example.editorexample.client;
 
 import com.github.nalukit.nalu.plugin.gwt.client.NaluPluginGWT;
 import com.google.gwt.core.client.EntryPoint;
+import org.dominokit.domino.rest.DominoRestConfig;
 
 /**
  * Copyright (C) 2018 - 2019 Frank Hossfeld <frank.hossfeld@googlemail.com>
@@ -22,6 +23,9 @@ public class App
     implements EntryPoint {
   
   public void onModuleLoad() {
+    // initialize domino rest
+    DominoRestConfig.initDefaults();
+    
     EditorExampleApplication application = new EditorExampleApplicationImpl();
     application.run(new NaluPluginGWT());
   }
